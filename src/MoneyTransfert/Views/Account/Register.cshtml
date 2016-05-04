@@ -1,42 +1,108 @@
 ﻿@model RegisterViewModel
 @{
     ViewData["Title"] = "Register";
+    Layout = null;
 }
 
-<h2>@ViewData["Title"].</h2>
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Mirrored from demo.interface.club/limitless/layout_4/LTR/material/login_tabbed.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 May 2016 01:54:10 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/colors.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script type="text/javascript" src="/assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="/assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/ui/drilldown.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="/assets/js/core/app.js"></script>
+    <script type="text/javascript" src="/assets/js/pages/login.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/ui/ripple.min.js"></script>
+    <!-- /theme JS files -->
+</head>
 
-<form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
-    <h4>Create a new account.</h4>
-    <hr />
-    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Register</button>
-        </div>
-    </div>
-</form>
 
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-}
+<body class="login-container login-cover">
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <div class="panel panel-body login-form">
+                    <form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
+                        <div class="text-center">
+                            <div class="icon-object border-success text-success"><i class="icon-plus3"></i></div>
+                            <h5 class="content-group">Create new account <small class="display-block">All fields are required</small></h5>
+                        </div>
+                        <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Your username" required>
+                            <div class="form-control-feedback">
+                                <i class="icon-mention text-muted"></i>
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input asp-for="Password" class="form-control" placeholder="Create password">
+                            <div class="form-control-feedback">
+                                <i class="icon-user-lock text-muted"></i>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirme password">
+                            <div class="form-control-feedback">
+                                <i class="icon-user-lock text-muted"></i>
+                            </div>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="content-divider text-muted form-group"><span>Additions</span></div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="styled">
+                                    Accept <a href="#">terms of service</a>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn bg-indigo-400 btn-block">Register <i class="icon-circle-right2 position-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- Footer -->
+    <div class="footer text-white text-center">
+        &copy; 2015. <a href="#" class="text-white">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" class="text-white" target="_blank">Eugene Kopyov</a>
+    </div>
+    <!-- /footer -->
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+</body>
+<!-- Mirrored from demo.interface.club/limitless/layout_4/LTR/material/login_tabbed.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 May 2016 01:54:10 GMT -->
+</html>
+
+
+
+

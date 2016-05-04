@@ -13,14 +13,21 @@ namespace MoneyTransfert.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Historique()
         {
             ViewData["Message"] = "Your application description page.";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Rapport()
+        {
+            ViewData["Message"] = "Your contact page.";
+
+            return View();
+        }
+
+        public IActionResult Help()
         {
             ViewData["Message"] = "Your contact page.";
 

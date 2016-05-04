@@ -6,85 +6,112 @@
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = null;
 }
 
-<h2>@ViewData["Title"].</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            <input asp-for="RememberMe" />
-                            <label asp-for="RememberMe"></label>
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Mirrored from demo.interface.club/limitless/layout_4/LTR/material/login_tabbed.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 May 2016 01:54:10 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/colors.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script type="text/javascript" src="/assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="/assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/ui/drilldown.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="/assets/js/core/app.js"></script>
+    <script type="text/javascript" src="/assets/js/pages/login.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/ui/ripple.min.js"></script>
+    <!-- /theme JS files -->
+</head>
+
+
+<body class="login-container login-cover">
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <div class="panel panel-body login-form">
+                    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                        <div class="text-center">
+                            <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+                            <h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-default">Log in</button>
-                    </div>
-                </div>
-                <p>
-                    <a asp-action="Register">Register as a new user?</a>
-                </p>
-                <p>
-                    <a asp-action="ForgotPassword">Forgot your password?</a>
-                </p>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                var loginProviders = SignInManager.GetExternalAuthenticationSchemes().ToList();
-                if (loginProviders.Count == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                        <div>
-                            <p>
-                                @foreach (var provider in loginProviders)
-                                {
-                                    <button type="submit" class="btn btn-default" name="provider" value="@provider.AuthenticationScheme" title="Log in using your @provider.DisplayName account">@provider.AuthenticationScheme</button>
-                                }
-                            </p>
+                        <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Username" required="required">
+                            <div class="form-control-feedback">
+                                <i class="icon-user text-muted"></i>
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input asp-for="Password" class="form-control"  placeholder="Password" name="password" required="required">
+                            <div class="form-control-feedback">
+                                <i class="icon-lock2 text-muted"></i>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group login-options">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="checkbox-inline">
+                                        <input asp-for="RememberMe" type="checkbox" class="styled" checked="checked">
+                                        Remember
+                                    </label>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <a href="login_password_recover.html">Forgot password?</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn bg-pink-400 btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
+                        <div class="content-divider text-muted form-group"><span>or sign in with</span></div>
+                        <ul class="list-inline form-group list-inline-condensed text-center">
+                            <li><a href="#" class="btn border-indigo text-indigo btn-flat btn-icon btn-rounded"><i class="icon-facebook"></i></a></li>
+                            <li><a href="#" class="btn border-pink-300 text-pink-300 btn-flat btn-icon btn-rounded"><i class="icon-dribbble3"></i></a></li>
+                            <li><a href="#" class="btn border-slate-600 text-slate-600 btn-flat btn-icon btn-rounded"><i class="icon-github"></i></a></li>
+                            <li><a href="#" class="btn border-info text-info btn-flat btn-icon btn-rounded"><i class="icon-twitter"></i></a></li>
+                        </ul>
+                        <span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
                     </form>
-                }
-            }
-        </section>
+                </div>
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
     </div>
-</div>
+    <!-- /page container -->
+    <!-- Footer -->
+    <div class="footer text-white text-center">
+        &copy; 2015. <a href="#" class="text-white">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" class="text-white" target="_blank">Eugene Kopyov</a>
+    </div>
+    <!-- /footer -->
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+</body>
+<!-- Mirrored from demo.interface.club/limitless/layout_4/LTR/material/login_tabbed.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 May 2016 01:54:10 GMT -->
+</html>
 
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-}
