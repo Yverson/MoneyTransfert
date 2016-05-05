@@ -60,9 +60,10 @@ namespace MoneyTransfert.Controllers
             }
             else
             {
-                trans.Pourcentage = 0;
-                trans.Total = trans.Montant + (trans.Montant * trans.Pourcentage * 0.01);
-                trans.MontantEuro = trans.Montant * 655;
+                trans.Pourcentage = 7;
+                trans.Montant = trans.MontantEuro * 655;
+                trans.Total = trans.Montant - (trans.Montant * trans.Pourcentage * 0.01);
+                
             }
 
             trans.status = "En Attente du Paiement";
@@ -75,11 +76,49 @@ namespace MoneyTransfert.Controllers
             }
             else
             {
-                return View(PaiementRapide(trans, "Transfert d'argent Paypal -> Mobile money"));
+                return Redirect(PaiementPaypal(trans, "Transfert d'argent Paypal -> Mobile money"));
             }
 
 
 
+        }
+
+        public IActionResult ValidationPaiement(string paymentId, string PayerID, string token)
+        {
+
+            Transactions trans = _dbContext.Transactions.Where(c => c.PaypalId == paymentId && c.Etat == "ACTIF" && c.status != "Terminer").FirstOrDefault();
+
+            if (trans != null)
+            {
+                Dictionary<string, string> sdkConfig = new Dictionary<string, string>();
+                sdkConfig.Add("mode", "sandbox");
+                string accessToken = new OAuthTokenCredential("AcZHMbdEwvd1QXQ-vdF-H0Kbe-IX-cM4kHhhc51w-SchOjO7lXIPmKlxBiNc-TTaHXf5TRjx5_0-TFRG", "EP71e33QUhJnEYGj4kh1SaV10MdQUVOyP3HArttAJ3jWPYJS8zN8QH3Y-AcNnD739Y2KpzrfHS_KVr8x", sdkConfig).GetAccessToken();
+
+                APIContext apiContext = new APIContext(accessToken);
+                apiContext.Config = sdkConfig;
+
+
+
+                // Using the information from the redirect, setup the payment to execute.
+                var paymentExecution = new PaymentExecution() { payer_id = PayerID };
+                var payment = new Payment() { id = paymentId };
+
+                try
+                {
+                    // Execute the payment.
+                    var executedPayment = payment.Execute(apiContext, paymentExecution);
+                    trans.log = "REUSSI";
+                    trans.status = "Terminer";
+
+                    _dbContext.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -150,12 +189,13 @@ namespace MoneyTransfert.Controllers
                                                 recipient_type = PayoutRecipientType.EMAIL,
                                                 amount = new Currency
                                                 {
-                                                    value = trans.MontantEuro.ToString(),
+                                                    //value = trans.MontantEuro.ToString(),
+                                                    value = "5",
                                                     currency = "EUR"
                                                 },
-                                                receiver = "boamathieu@yahoo.fr",
+                                                receiver = trans.Email,
                                                 note = "Thank you.",
-                                                sender_item_id = trans.Id
+                                                sender_item_id = trans.Id.ToString().Substring(0,8)
                                             }
                                         }
                                     };
@@ -291,5 +331,49 @@ namespace MoneyTransfert.Controllers
 
             return pay;
         }
+
+        public string PaiementPaypal(Transactions trans, string Description)
+        {
+            Dictionary<string, string> sdkConfig = new Dictionary<string, string>();
+            sdkConfig.Add("mode", "sandbox");
+            string accessToken = new OAuthTokenCredential("AcZHMbdEwvd1QXQ-vdF-H0Kbe-IX-cM4kHhhc51w-SchOjO7lXIPmKlxBiNc-TTaHXf5TRjx5_0-TFRG", "EP71e33QUhJnEYGj4kh1SaV10MdQUVOyP3HArttAJ3jWPYJS8zN8QH3Y-AcNnD739Y2KpzrfHS_KVr8x", sdkConfig).GetAccessToken();
+
+            APIContext apiContext = new APIContext(accessToken);
+            apiContext.Config = sdkConfig;
+
+            Amount amnt = new Amount();
+            amnt.currency = "EUR";
+            //amnt.total = trans.Total.ToString();
+            amnt.total = trans.MontantEuro.ToString();
+
+            List<Transaction> transactionList = new List<Transaction>();
+            Transaction tran = new Transaction();
+            tran.description = Description;
+            tran.amount = amnt;
+            transactionList.Add(tran);
+
+            Payer payr = new Payer();
+            payr.payment_method = "paypal";
+
+            RedirectUrls redirUrls = new RedirectUrls();
+            redirUrls.cancel_url = "http://etransfert.net";
+            redirUrls.return_url = "http://localhost:63918/Home/ValidationPaiement";
+
+            Payment pymnt = new Payment();
+            pymnt.intent = "sale";
+            pymnt.payer = payr;
+            pymnt.transactions = transactionList;
+            pymnt.redirect_urls = redirUrls;
+
+            Payment createdPayment = pymnt.Create(apiContext);
+
+            trans.PaypalId = createdPayment.id;
+            _dbContext.SaveChanges();
+
+            string url = createdPayment.GetApprovalUrl();
+            return url;
+
+        }
+
     }
 }

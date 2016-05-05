@@ -8,9 +8,10 @@ using MoneyTransfert.Models;
 namespace MoneyTransfert.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160505131544_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -163,10 +164,6 @@ namespace MoneyTransfert.Migrations
                     b.Property<double>("Montant");
 
                     b.Property<double>("MontantEuro");
-
-                    b.Property<string>("Numero");
-
-                    b.Property<string>("PaypalId");
 
                     b.Property<double>("Pourcentage");
 
