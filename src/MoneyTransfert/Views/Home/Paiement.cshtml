@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Paiement";
+}
+
+
+<div class="page-content">
+    <div class="container col-md-6 col-md-offset-4">
+        
+        <!-- BEGIN PAGE CONTENT INNER -->
+        <div class="row">
+            <div class="center-block" style="font-size:large;">
+                <p class="center-block">
+
+                Patientez svp pendant la redirection vers la plateforme de paiement
+                
+                    <br /><br />
+                    <img src="~/images/loader.gif" alt="loading..." />
+
+                  </p>
+                <form id="__PostForm" name="__PostForm" action="http://secure.sandbox.cinetpay.com" method="post">
+                    @foreach (var todo in Model.data)
+                    {
+                        <div>
+                            <input id="btn" type="hidden" name="@todo.Key" value="@todo.Value" />
+                        </div>
+                    }
+                </form>
+
+            </div>
+        </div>
+        <!-- END PAGE CONTENT INNER -->
+
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+
+
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+    var v__PostForm = document.__PostForm;
+    v__PostForm.submit();
+    </script>
+}
+
