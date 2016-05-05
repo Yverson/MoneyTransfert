@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Authorization;
 
 namespace MoneyTransfert.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
