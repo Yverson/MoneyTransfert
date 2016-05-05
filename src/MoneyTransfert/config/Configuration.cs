@@ -17,7 +17,7 @@ namespace MoneyTransfert
         public static string URIStatus = baseUrlTest +"v1/?method=checkPayStatus";
 
         public static string apikey = "106612574455953b2d0e7775.94466351";
-        public static string cpm_site_id = "883420";
+        public static string cpm_site_id = "721335";
         public static string cpm_currency = "CFA";
         public static string cpm_page_action = "PAYMENT";
         public static string cpm_payment_config = "SINGLE";
